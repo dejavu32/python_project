@@ -85,18 +85,17 @@ def get_tags(text, ntags=50, multiplier=10):
 import webbrowser
 import pytagcloud           # word cloud 그리기
 
-def draw_cloud(tags, filename, fontname='Noto Sans CJK', size=(800, 600)):
+def draw_cloud(tags, filename, fontname='Noto Sans CJK', size=(800, 600)):          # fontname='Noto Sans CJK' 한글,
     pytagcloud.create_tag_image(tags, filename, fontname=fontname, size=size)
     webbrowser.open(filename)
 
-
+# 결과 출력 테스트
 url = 'http://tos.nexon.com/community/suggest/view.aspx?n4ArticleSN='+ str(100)
-print url             # 테스트용 url 출력
+print url                           # 테스트용 url 출력
 board_main = get_url_text(url)
-print board_main
-tags = get_tags(board_main)         # 입렵받은 url의 본문 내용을 tags로 나누어주는
-print(tags)         # tag의 결과는 딕셔너리 리스트 형태
-print(tags[1]['tag'])
-draw_cloud(tags, 'wordcloud.png')
+print board_main                    # 게시판의 본문 내용 테스트 출력
+tags = get_tags(board_main)          # 입렵받은 url의 본문 내용을 tags로 나누어주는
+print(tags)                         # tag의 결과는 딕셔너리 리스트 형태
+draw_cloud(tags, 'wordcloud.png')   # 워드 클라우딩된 이미지 출력
 
 
