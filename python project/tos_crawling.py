@@ -85,17 +85,48 @@ def get_tags(text, ntags=50, multiplier=10):
 import webbrowser
 import pytagcloud           # word cloud 그리기
 
-def draw_cloud(tags, filename, fontname='Noto Sans CJK', size=(800, 600)):          # fontname='Noto Sans CJK' 한글,
+def draw_cloud(tags, filename,
+               fontname='NotoSansCJKkr-Regular_0', size=(800, 600)):          # fontname='Noto Sans CJK' 한글,
     pytagcloud.create_tag_image(tags, filename, fontname=fontname, size=size)
     webbrowser.open(filename)
 
 # 결과 출력 테스트
-url = 'http://tos.nexon.com/community/suggest/view.aspx?n4ArticleSN='+ str(100)
-print url                           # 테스트용 url 출력
-board_main = get_url_text(url)
-print board_main                    # 게시판의 본문 내용 테스트 출력
-tags = get_tags(board_main)          # 입렵받은 url의 본문 내용을 tags로 나누어주는
-print(tags)                         # tag의 결과는 딕셔너리 리스트 형태
-draw_cloud(tags, 'wordcloud.png')   # 워드 클라우딩된 이미지 출력
+# 여러글 한번에 출력
+text = ''
+for i in range(19340,19430):
+
+    url = 'http://tos.nexon.com/community/suggest/view.aspx?n4ArticleSN='+ str(i)
+    text += get_url_text(url)+ ''
+
+print text
+taglist = get_tags(text)          # 입렵받은 url의 본문 내용을 tags로 나누어주는
+# print(taglist)
+
+draw_cloud(taglist, 'e:\tos_test.png')
+
+# 한 글씩 출력
+# url = 'http://tos.nexon.com/community/suggest/view.aspx?n4ArticleSN='+ str(100)
+# print url                           # 테스트용 url 출력
+# board_main = get_url_text(url)
+# print board_main                    # 게시판의 본문 내용 테스트 출력
+
+
+
+# tags = get_tags(board_main)          # 입렵받은 url의 본문 내용을 tags로 나누어주는
+# print(tags)                         # tag의 결과는 딕셔너리 리스트 형태
+#
+# draw_cloud(tags, 'wordcloud.png')   # 워드 클라우딩된 이미지 출력
+#
+
+# 파일로 만든 결과를 워드 클라우딩 하기
+# import os
+# f = open('tos_crawling_result_sample.txt','r')
+#
+# s= f.read()
+# tags = get_tags(s)          # 입렵받은 url의 본문 내용을 tags로 나누어주는
+# draw_cloud(tags, 'e:\kor_test.png')
+# f.close()
+
+
 
 
